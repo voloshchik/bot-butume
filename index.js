@@ -1,26 +1,30 @@
 const TelegramBot = require("node-telegram-bot-api");
+
 const config = require("config");
 
 const token = config.get("token");
 
-// Создайте экземпляр бота с использованием Long Polling
 const bot = new TelegramBot(token, { polling: true });
+
+// Задайте ключевые слова и их склонения
+const keywordMappings = [["потолок", "потолка", "потолку", "потолок", "потолком"]];
 
 // Обработчик для входящих сообщений от Telegram
 bot.on("message", (msg) => {
   const chatId = msg.chat.id;
+  const messageText = msg.text.toLowerCase(); // Приводим текст сообщения к нижнему регистру
 
-  const messageText = msg.text;
+  // Проверяем, содержит ли сообщение хотя бы одно ключевое слово (с учетом склонения)
 
-  // Делаем что-то с полученным сообщением
-  if (messageText.includes("натяжные потолки") || messageText.includes("потолок")) {
-    console.log(`Получено сообщение от чата ${chatId} о натяжных потолках: ${messageText}`);
-    // Отправляем ответное сообщение
+  console.log("messageText", messageText);
+
+  const containsKeyword = keywordMappings.some((keywords) =>
+    keywords.some((keyword) => messageText.includes(keyword))
+  );
+
+  if (containsKeyword) {
     bot.sendMessage(chatId, "Мы специализируемся на натяжных потолках. Как мы можем вам помочь?");
   }
-  // Отправляем ответное сообщение
-
-  // bot.sendMessage(chatId, "Спасибо за ваше сообщение!");
 });
 
 console.log("Бот запущен и слушает сообщения...");
