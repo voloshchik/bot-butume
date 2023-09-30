@@ -22,7 +22,6 @@ bot
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
-  b;
   res.json({ user: "volodia" });
 });
 
