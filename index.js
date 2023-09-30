@@ -5,13 +5,15 @@ const bodyParser = require("body-parser");
 const app = express();
 const token = config.get("token");
 
-const bot = new TelegramBot(token, { polling: true });
+const bot = new TelegramBot(token);
 
 const ngrokUrl = "https://254b-2a09-bac1-1380-00-49-bc.ngrok-free.app"; // Замените на ваш реальный URL от ngrok
 const webhookUrl = `${ngrokUrl}/webhook`;
 
+const url = ngrokUrl;
+
 bot
-  .setWebHook(webhookUrl)
+  .setWebHook(`${url}/bot${token}`)
   .then(() => {
     console.log(`Webhook установлен на ${webhookUrl}`);
   })
@@ -26,7 +28,9 @@ app.get("/", (req, res) => {
 });
 
 // Обработка POST-запросов от Telegram
-app.post("/webhook", (req, res) => {
+
+const rthw = `/bot${token}`;
+app.post(rthw, (req, res) => {
   console.log("ddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
   console.log("req.body", req.body);
   const { message } = req.body;
