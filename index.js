@@ -6,6 +6,8 @@ const token = process.env.TOKEN;
 console.log("token", token);
 
 const bot = new TelegramBot(token, { polling: true });
+const sendTo = process.env.SEND__TO;
+console.log("sendTo", sendTo);
 
 // Задайте ключевые слова и их склонения
 const keywordMappings = config.get("keywordMappings");
