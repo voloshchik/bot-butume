@@ -1,8 +1,11 @@
 const express = require("express");
+const TelegramBot = require("node-telegram-bot-api");
 const config = require("config");
 const bodyParser = require("body-parser");
 const app = express();
 const token = config.get("token");
+
+const bot = new TelegramBot(token, { polling: true });
 
 app.use(bodyParser.json());
 
