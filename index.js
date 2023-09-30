@@ -8,7 +8,7 @@ const bot = new TelegramBot(token, { polling: true });
 
 // Задайте ключевые слова и их склонения
 const keywordMappings = [
-  ["потолок", "потолка", "потолку", "потолок", "потолком"],
+  ["потолок", "потолка", "потолку", "потолок", "потолком", "потолки"],
   [
     "натяжной потолок",
     "натяжного потолка",
@@ -37,7 +37,10 @@ bot.on("message", (msg) => {
   console.log("messageText", messageText);
 
   const containsKeyword = keywordMappings.some((keywords) =>
-    keywords.some((keyword) => messageText.includes(keyword))
+    keywords.some((keyword) => {
+      console.log("keyword", keyword);
+      return messageText.includes(keyword);
+    })
   );
 
   if (containsKeyword) {
