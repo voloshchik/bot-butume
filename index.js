@@ -1,10 +1,13 @@
 const express = require("express");
+const config = require("config");
 const bodyParser = require("body-parser");
 const app = express();
+const token = config.get("token");
 
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
+  console.log("token", token);
   res.json({ user: "volodia" });
 });
 
