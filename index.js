@@ -7,18 +7,19 @@ const token = config.get("token");
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
-  console.log("token", token);
   res.json({ user: "volodia" });
 });
 
 // Обработка POST-запросов от Telegram
 app.post("/webhook", (req, res) => {
+  console.log("req.body", req.body);
   const { message } = req.body;
   if (message) {
     // Обрабатываем сообщение
-    console.log(`Получено сообщение: ${message.text}`);
+    console.log(`Получено сообщение: ${message}`);
   }
-  res.sendStatus(200);
+  console.log("");
+  res.json({ user: message });
 });
 
 // Запуск сервера на порту 3000
