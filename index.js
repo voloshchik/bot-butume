@@ -14,7 +14,7 @@ const keywordMappings = config.get("keywordMappings");
 
 // Обработчик для входящих сообщений от Telegram
 bot.on("message", (msg) => {
-  const chatId = msg.chat.id;
+  // const chatId = msg.chat.id;
   const messageText = msg.text.toLowerCase(); // Приводим текст сообщения к нижнему регистру
   console.log("messageText", messageText);
   // Проверяем, содержит ли сообщение хотя бы одно ключевое слово (с учетом склонения)
@@ -25,7 +25,8 @@ bot.on("message", (msg) => {
   );
 
   if (containsKeyword) {
-    bot.sendMessage(chatId, "Мы специализируемся на натяжных потолках. Как мы можем вам помочь?");
+    console.log("containsKeyword", containsKeyword);
+    bot.sendMessage(sendTo, "Мы специализируемся на натяжных потолках. Как мы можем вам помочь?");
   }
 });
 
