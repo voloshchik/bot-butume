@@ -1,8 +1,9 @@
 const TelegramBot = require("node-telegram-bot-api");
-
+require("dotenv").config();
 const config = require("config");
 
-const token = config.get("token");
+const token = process.env.TOKEN;
+console.log("token", token);
 
 const bot = new TelegramBot(token, { polling: true });
 
@@ -13,11 +14,8 @@ const keywordMappings = config.get("keywordMappings");
 bot.on("message", (msg) => {
   const chatId = msg.chat.id;
   const messageText = msg.text.toLowerCase(); // Приводим текст сообщения к нижнему регистру
-
-  // Проверяем, содержит ли сообщение хотя бы одно ключевое слово (с учетом склонения)
-
   console.log("messageText", messageText);
-
+  // Проверяем, содержит ли сообщение хотя бы одно ключевое слово (с учетом склонения)
   const containsKeyword = keywordMappings.some((keywords) =>
     keywords.some((keyword) => {
       return messageText.includes(keyword);
